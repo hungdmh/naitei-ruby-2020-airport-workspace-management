@@ -1,26 +1,15 @@
-name: Rails CII
+name: Node.js CI
 
-on:
-  push:
-    paths:
-      - 'awm-api/**'
-      - '.github/**'
-  pull_request:
-    paths:
-      - 'awm-api/**'
-      - '.github/**'
+on: [push]
 
 jobs:
-  CI:
+  build:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
-      - name: Install bundle
-        run: sudo gem install bundler
-      - name: Install gem
-        run: |
-          cd awm-api
-          bundle install --with development
+
+      - name: Install gemfile
+        run: cd awm-api && bundle install
       - name: Rubocop
         run: cd awm-api && bundle exec rubocop
       - name: Rails Best Practices
