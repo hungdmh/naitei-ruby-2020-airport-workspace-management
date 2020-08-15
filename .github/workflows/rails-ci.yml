@@ -1,18 +1,18 @@
-name: Rails CI
+name: Rails CII
 
 on:
   push:
     paths:
-      - "awm-api/**"
-      - ".github/**"
+      - 'awm-api/**'
+      - '.github/**'
   pull_request:
     paths:
-      - "awm-api/**"
-      - ".github/**"
+      - 'awm-api/**'
+      - '.github/**'
 
 jobs:
   CI:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
       - name: Install bundle
@@ -24,7 +24,8 @@ jobs:
       - name: Rubocop
         run: cd awm-api && bundle exec rubocop
       - name: Rails Best Practices
-        run: cd awm-api && bundle exec rails_best_practices -e
+        run:
+          cd awm-api && bundle exec rails_best_practices -e
           "db/schema.rb,db/migrate,vendor,app/models/application_record.rb"
       - name: Rpec
         run: cd awm-api && bundle exec rspec --format documentation
